@@ -12,7 +12,7 @@ async function setup(){
 
     // console.log('dati: ', data)
 
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth, windowHeight - 40);
     let parametri = getURLParams();
     selezionata = parametri.Territorio;
     // console.log(selezionata)
