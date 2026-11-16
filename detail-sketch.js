@@ -26,39 +26,44 @@ async function setup(){
 function draw(){
     background('#EBD2AD');
     noStroke();
+    let rigaSelezionata = data.findRow(selezionataNormale, "Territorio");
+    // console.log('riga selezionata: ', rigaSelezionata)
+    let nomePaese = rigaSelezionata.getString("Territorio");
 
 //scrivo legenda
   fill(0);
   textSize(48);
   text("Coltivazioni di uva da vino in Italia", 20, 60);
   textSize(24);
-  text("Superfici e produzioni nella provincia di ", 20, 100);
+  text("Superfici e produzioni nella provincia di " + nomePaese, 20, 100);
   textSize(18);
-  text("Produzione totale (quintali): quantità di chicchi d'uva", 20, 140);
+  text("LEGENDA", 20, 140);
   textSize(18);
-  text("Superficie totale (ettari): scala colore", 20, 160);
+  text("Produzione totale (quintali): quantità di chicchi d'uva", 20, 160);
+  textSize(18);
+  text("Superficie totale (ettari): scala colore", 20, 180);
 
   //disegno rettangoli scala colore legenda
   fill('#8d257c')
-  rect(20, 180, 20);
+  rect(20, 200, 20);
     fill('#6f4687')
-  rect(40, 180, 20);
+  rect(40, 200, 20);
       fill('#725f8b')
-  rect(60, 180, 20);
+  rect(60, 200, 20);
       fill('#75778d')
-  rect(80, 180, 20);
+  rect(80, 200, 20);
       fill('#778d8f')
-  rect(100, 180, 20);
+  rect(100, 200, 20);
       fill('#79a490')
-  rect(120, 180, 20);
+  rect(120, 200, 20);
       fill('#7abb90')
-  rect(140, 180, 20);
+  rect(140, 200, 20);
       fill('#7cd28f')
-  rect(160, 180, 20);
+  rect(160, 200, 20);
       fill('#7fe88d')
-  rect(180, 180, 20);
+  rect(180, 200, 20);
       fill('#82ff8a')
-  rect(200, 180, 20);
+  rect(200, 200, 20);
 
     let produzioneDop = 0;
     let produzioneIgp = 0;
@@ -82,14 +87,12 @@ function draw(){
         100: '#82ff8a',
     }
 
-    let rigaSelezionata = data.findRow(selezionataNormale, "Territorio");
-    // console.log('riga selezionata: ', rigaSelezionata)
-        let nomePaese = rigaSelezionata.getString("Territorio");
+
 
 //getString perchè sennò non prende in considerazione le caselle vuote del csv
     let stringSuperficieDop = rigaSelezionata.getString("Superficie totale - ettari - Uve per vini dop");
     let stringSuperficieIgp = rigaSelezionata.getString("Superficie totale - ettari - Uve per vini igp");
-    let stringSuperficieAltro = rigaSelezionata.getString("Produzione totale - quintali - Uve per altri vini (escluso dop e igp)");
+    let stringSuperficieAltro = rigaSelezionata.getString("Superficie totale - ettari - Uve per altri vini (escluso dop e igp)");
 
 
     let stringProduzioneDop = rigaSelezionata.getString("Produzione totale - quintali - Uve per vini dop");
@@ -125,14 +128,14 @@ function draw(){
     let percSupDop = round((superficieDop/totaleSuperficie) *100);
     let percSupIgp = round((superficieIgp/totaleSuperficie) *100);
     let percSupAltro = 100 - (percSupDop + percSupIgp);
-    console.log(totaleProduzione)
-    console.log(produzioneDop)
-    console.log(produzioneIgp)
-    console.log(produzioneAltro)
+    // console.log(totaleProduzione)
+    // console.log(produzioneDop)
+    // console.log(produzioneIgp)
+    // console.log(produzioneAltro)
 
-    console.log(percDop)
-    console.log(percIgp)
-    console.log(percAltro)
+    // console.log(percDop)
+    // console.log(percIgp)
+    // console.log(percAltro)
 
     let xIniziale = margin + (d/2);
     let x = xIniziale;
@@ -164,7 +167,6 @@ function draw(){
     }
     //disegno i chicchi di vini dop
     for(let i=0; i < percDop; i++){
-        // fill(colorScale);
         circle(x, y, d);
         x+=d;
     }
@@ -199,10 +201,8 @@ function draw(){
       fill(colorScale[100])
     }
     //disegno i chicchi di vini igp
-    // console.log("inizio igp: ")
     x = xIniziale;
     for(let i=0; i < percIgp; i++){
-        // fill(255);
         circle(x, y1, d);
         x+=d;
     }
@@ -239,7 +239,6 @@ function draw(){
     //disegno i chicchi di vini ne dop ne igp
     x = xIniziale;
     for(let i=0; i < percAltro; i++){
-        // fill(175);
         circle(x, y2, d);
         x+=d;
     }
